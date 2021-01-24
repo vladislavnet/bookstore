@@ -22,9 +22,9 @@ namespace Store.Memory
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Book> GetByAllIsbn(string Isbn)
+        public IEnumerable<Book> GetByAllIsbn(string isbn)
         {
-            throw new NotImplementedException();
+            return books.Where(book => book.Isbn == isbn);
         }
     }
 }

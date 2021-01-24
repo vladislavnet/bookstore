@@ -28,5 +28,17 @@ namespace Store.Tests
         {
             Assert.True(Book.IsIsbn("IsBN 123-123-123 0"));
         }
+
+        [Fact]
+        public void IsIsbn_WithIsbn13_ReturnTrue()
+        {
+            Assert.True(Book.IsIsbn("IsBN 123 123-123-123 0"));
+        }
+
+        [Fact]
+        public void IsIsbn_WithTrashStart_ReturnFalse()
+        {
+            Assert.False(Book.IsIsbn(" aaa sdas asd IsBN 123 123-123-123 0 asd asd"));
+        }
     }
 }

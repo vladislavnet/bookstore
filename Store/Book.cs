@@ -18,5 +18,10 @@ namespace Store
             Author = author;
             Title = title;
         }
+
+        internal static bool IsIsbn(string s)
+        {
+            return false;
+        }
     }
 }

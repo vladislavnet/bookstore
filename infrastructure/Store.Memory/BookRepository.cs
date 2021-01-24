@@ -12,14 +12,11 @@ namespace Store.Memory
             new Book(2, "ISBN 12345-67891", 2, new Author(2, "Martin Fauler"), "Pro Angular 9"),
             new Book(3, "ISBN 12345-67891", 3, new Author(3, "Donald Knut"), "Microsoft Blazor"),
         };
-        public IEnumerable<Book> GetAllByTitle(string titlePart)
-        {
-            return books.Where(book => book.Title.Contains(titlePart));
-        }
 
         public IEnumerable<Book> GetAllByTitleOrAutror(string titleOrAuthor)
         {
-            throw new NotImplementedException();
+            return books.Where(book => book.Title.Contains(titleOrAuthor) 
+                                    || book.Author.Fullname.Contains(titleOrAuthor));
         }
 
         public IEnumerable<Book> GetByAllIsbn(string isbn)

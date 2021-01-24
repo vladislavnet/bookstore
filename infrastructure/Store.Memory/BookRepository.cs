@@ -16,5 +16,15 @@ namespace Store.Memory
         {
             return books.Where(book => book.Title.Contains(titlePart));
         }
+
+        public IEnumerable<Book> GetAllByTitleOrAutror(string titleOrAuthor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Book> GetByAllIsbn(string Isbn)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

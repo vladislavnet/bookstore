@@ -6,7 +6,7 @@ namespace Store
 {
     public class BookService
     {
-        IEnumerable<Book> GetAllByQuery(string query)
+        public IEnumerable<Book> GetAllByQuery(string query)
         {
             throw new NotImplementedException();
         }

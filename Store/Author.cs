@@ -14,5 +14,6 @@ namespace Store
             Id = id;
             Fullname = fullname;
         }
+
     }
 }

@@ -18,6 +18,19 @@ namespace Store.Web.Controllers
             this.orderRepository = orderRepository;
         }
 
+        public IActionResult Index()
+        {
+            if (HttpContext.Session.TryGetCart(out Cart cart))
+            {
+                var order = orderRepository.GetById(cart.OrderId);
+                OrderModel model = null;
+
+                return View(model);
+            }
+
+            return View("Empty");
+        }
+
         [HttpPost]
         public IActionResult AddItem(int id)
         {

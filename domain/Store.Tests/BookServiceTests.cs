@@ -37,5 +37,55 @@ namespace Store.Tests
 
             Assert.Collection(bookService.GetAllByQuery("Martin Fauler"), book => Assert.Equal(2, book.Id));
         }
+
+        [Fact]
+        public void GetAllByQuery_WithStubIsbn_CallsGetAllByIsbn()
+        {
+            const int idOfIsbnSearch = 1;
+            const int idOfAuthorSearch = 2;
+
+            var bookRepository = new StubBookRepository();
+
+            bookRepository.ResultOfGetByAllIsbn = new[]
+            {
+                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), ""),
+            };
+
+            bookRepository.ResultOfGetAllByTitleOrAutror = new[]
+            {
+                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), ""),
+            };
+
+            var bookService = new BookService(bookRepository);
+
+            var books = bookService.GetAllByQuery("ISBN 12345-67890");
+
+            Assert.Collection(books, book => Assert.Equal(idOfIsbnSearch, book.Id));
+        }
+
+        [Fact]
+        public void GetAllByQuery_WithStubIsbn_CallsGetAllByTitleOrAuthor()
+        {
+            const int idOfIsbnSearch = 1;
+            const int idOfAuthorSearch = 2;
+
+            var bookRepository = new StubBookRepository();
+
+            bookRepository.ResultOfGetByAllIsbn = new[]
+            {
+                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), ""),
+            };
+
+            bookRepository.ResultOfGetAllByTitleOrAutror = new[]
+            {
+                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), ""),
+            };
+
+            var bookService = new BookService(bookRepository);
+
+            var books = bookService.GetAllByQuery("Martin Fauler");
+
+            Assert.Collection(books, book => Assert.Equal(idOfAuthorSearch, book.Id));
+        }
     }
 }

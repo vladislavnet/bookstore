@@ -13,10 +13,10 @@ namespace Store.Tests
         {
             var bookRepositoryMoq = new Mock<IBookRepository>();
             bookRepositoryMoq.Setup(x => x.GetByAllIsbn(It.IsAny<string>()))
-                             .Returns(new[] { new Book(1, "", 1, new Author(1, ""), "") });
+                             .Returns(new[] { new Book(1, "", 1, new Author(1, ""), "", "", 0m) });
 
             bookRepositoryMoq.Setup(x => x.GetAllByTitleOrAutror(It.IsAny<string>()))
-                             .Returns(new[] { new Book(2, "", 2, new Author(2, ""), "") });
+                             .Returns(new[] { new Book(2, "", 2, new Author(2, ""), "", "", 0m) });
 
             var bookService = new BookService(bookRepositoryMoq.Object);
 
@@ -28,10 +28,10 @@ namespace Store.Tests
         {
             var bookRepositoryMoq = new Mock<IBookRepository>();
             bookRepositoryMoq.Setup(x => x.GetByAllIsbn(It.IsAny<string>()))
-                             .Returns(new[] { new Book(1, "", 1, new Author(1, ""), "") });
+                             .Returns(new[] { new Book(1, "", 1, new Author(1, ""), "", "", 0m) });
 
             bookRepositoryMoq.Setup(x => x.GetAllByTitleOrAutror(It.IsAny<string>()))
-                             .Returns(new[] { new Book(2, "", 2, new Author(2, ""), "") });
+                             .Returns(new[] { new Book(2, "", 2, new Author(2, ""), "", "", 0m) });
 
             var bookService = new BookService(bookRepositoryMoq.Object);
 
@@ -48,12 +48,12 @@ namespace Store.Tests
 
             bookRepository.ResultOfGetByAllIsbn = new[]
             {
-                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), ""),
+                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), "", "", 0m),
             };
 
             bookRepository.ResultOfGetAllByTitleOrAutror = new[]
             {
-                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), ""),
+                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), "", "", 0m),
             };
 
             var bookService = new BookService(bookRepository);
@@ -73,12 +73,12 @@ namespace Store.Tests
 
             bookRepository.ResultOfGetByAllIsbn = new[]
             {
-                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), ""),
+                new Book(idOfIsbnSearch, "", 1, new Author(1, ""), "", "", 0m),
             };
 
             bookRepository.ResultOfGetAllByTitleOrAutror = new[]
             {
-                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), ""),
+                new Book(idOfAuthorSearch, "", 2, new Author(2, ""), "", "", 0m),
             };
 
             var bookService = new BookService(bookRepository);

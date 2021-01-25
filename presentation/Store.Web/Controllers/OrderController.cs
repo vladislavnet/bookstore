@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Store.Web.Controllers
 {
-    public class CartController : Controller
+    public class OrderController : Controller
     {
         private readonly IBookRepository bookRepository;
         private readonly IOrderRepository orderRepository;
 
-        public CartController(IBookRepository bookRepository, IOrderRepository orderRepository)
+        public OrderController(IBookRepository bookRepository, IOrderRepository orderRepository)
         {
             this.bookRepository = bookRepository;
             this.orderRepository = orderRepository;

@@ -37,5 +37,10 @@ namespace Store.Memory
         {
             return books.Where(book => book.Isbn == isbn);
         }
+
+        public Book GetById(int id)
+        {
+            return books.Single(book => book.Id == id);
+        }
     }
 }

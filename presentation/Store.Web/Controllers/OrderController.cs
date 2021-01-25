@@ -23,7 +23,7 @@ namespace Store.Web.Controllers
             if (HttpContext.Session.TryGetCart(out Cart cart))
             {
                 var order = orderRepository.GetById(cart.OrderId);
-                OrderModel model = null;
+                OrderModel model = Map(order);
 
                 return View(model);
             }
@@ -56,6 +56,30 @@ namespace Store.Web.Controllers
             HttpContext.Session.Set(cart);
 
             return RedirectToAction("Index", "Book", new { id });
+        }
+
+        private OrderModel Map(Order order)
+        {
+            var bookIds = order.Items.Select(item => item.BookId);
+            var books = bookRepository.GetByIds(bookIds);
+            var itemModels = from item in order.Items
+                             join book in books on item.BookId equals book.Id
+                             select new OrderItemModel
+                             {
+                                 BookId = book.Id,
+                                 Title = book.Title,
+                                 AuthorId = book.AuthorId,
+                                 AuthorFullname = book.Author.Fullname,
+                                 Price = item.Price,
+                                 Count = item.Count,
+                             };
+            return new OrderModel
+            {
+                Id = order.Id,
+                Items = itemModels.ToArray(),
+                TotalCount = order.TotalCount,
+                TotalPrice = order.TotalPrice,
+            };
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Store
         {
             if (count <= 0)
                 throw new ArgumentOutOfRangeException("Count must be greater than zero");
+            BookId = bookId;
             Count = count;
             Price = price;
         }

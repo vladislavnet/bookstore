@@ -19,7 +19,7 @@ namespace Store.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(int id)
+        public IActionResult AddItem(int id)
         {
             Order order;
             Cart cart;

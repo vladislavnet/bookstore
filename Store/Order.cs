@@ -39,16 +39,11 @@ namespace Store
                 throw new ArgumentNullException(nameof(book));
 
             var item = items.SingleOrDefault(x => x.BookId == book.Id);
-
-            if(item == null)
-            {
+            int index = items.FindIndex(item => item.BookId == book.Id);
+            if(index == -1)
                 items.Add(new OrderItem(book.Id, count, book.Price));
-            }
             else
-            {
-                items.Remove(item);
-                items.Add(new OrderItem(book.Id, item.Count + count, book.Price));
-            }
+                items[index].Count += count;
         }
 
         public void RemoveItem(Book book)

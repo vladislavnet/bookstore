@@ -78,5 +78,33 @@ namespace Store.Tests
 
             Assert.Throws<InvalidOperationException>(() => order.Get(10));
         }
+
+
+        [Fact]
+        public void RemoveItem_WithExistingItem_RemovesItem()
+        {
+            var order = new Order(1, new List<OrderItem>()
+            {
+                new OrderItem(1, 3, 10m),
+                new OrderItem(2, 5, 100m),
+            });
+
+            order.RemoveItem(1);
+
+            Assert.Equal(1, order.Items.Count);
+        }
+
+
+        [Fact]
+        public void RemoveItem_WithNoneExistingItem_ThrowsInvalidOperationException()
+        {
+            var order = new Order(1, new List<OrderItem>()
+            {
+                new OrderItem(1, 3, 10m),
+                new OrderItem(2, 5, 100m),
+            });
+
+            Assert.Throws<InvalidOperationException>(() => order.RemoveItem(10));
+        }
     }
 }

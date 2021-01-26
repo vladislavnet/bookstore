@@ -37,13 +37,9 @@ namespace Store.Web.Controllers
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
             var book = bookRepository.GetById(id);
-            order.AddOrUpdateItem(book, 1);
-            orderRepository.Update(order);
 
-            cart.TotalCount = order.TotalCount;
-            cart.TotalPrice = order.TotalPrice;
-
-            HttpContext.Session.Set(cart);
+            order.AddOrUpdateItem(book, count);
+            SaveOrderAndCart(order, cart);
 
             return RedirectToAction("Index", "Book", new { id });
         }

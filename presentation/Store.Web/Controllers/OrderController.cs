@@ -5,6 +5,7 @@ using Store.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Store.Web.Controllers
@@ -149,6 +150,15 @@ namespace Store.Web.Controllers
             HttpContext.Session.Set(cart);
         }
 
+        private bool IsValidCellPhone(string cellPhone)
+        {
+            if (cellPhone == null)
+                return false;
 
+            cellPhone = cellPhone.Replace(" ", "")
+                                 .Replace("-", "");
+
+            return Regex.IsMatch(cellPhone, @"^\+?\d{11}$");
+        }
     }
 }

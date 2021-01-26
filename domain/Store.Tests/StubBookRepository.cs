@@ -22,5 +22,10 @@ namespace Store.Tests
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Book> GetByIds(IEnumerable<int> bookIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

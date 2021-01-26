@@ -18,6 +18,8 @@ namespace Store.Web.Controllers
             this.orderRepository = orderRepository;
         }
 
+
+        [HttpGet]
         public IActionResult Index()
         {
             if (HttpContext.Session.TryGetCart(out Cart cart))

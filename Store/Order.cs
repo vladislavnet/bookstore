@@ -38,7 +38,6 @@ namespace Store
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            var item = items.SingleOrDefault(x => x.BookId == book.Id);
             int index = items.FindIndex(item => item.BookId == book.Id);
             if(index == -1)
                 items.Add(new OrderItem(book.Id, count, book.Price));

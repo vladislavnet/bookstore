@@ -69,6 +69,30 @@ namespace Store.Web.Controllers
             return RedirectToAction("Index", "Order");
         }
 
+        [HttpPost]
+        public IActionResult SendConfirmationCode(int id, string cellPhone)
+        {
+            var order = orderRepository.GetById(id);
+            var model = Map(order);
+
+            if (!IsValidCellPhone(cellPhone))
+            {
+                model.Errors["cellPhone"] = "Номер телефона не соответствует формату +79876543210";
+                return View("Index", model);
+            }
+
+            int code = 1111; // random.Next(1000, 10000)
+            HttpContext.Session.SetInt32(cellPhone, code);
+            notificationService.SendConfirmationCode(cellPhone, code);
+
+            return View("Confirmation",
+                        new ConfirmationModel
+                        {
+                            OrderId = id,
+                            CellPhone = cellPhone
+                        });
+        }
+
         private OrderModel Map(Order order)
         {
             var bookIds = order.Items.Select(item => item.BookId);

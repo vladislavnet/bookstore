@@ -47,7 +47,7 @@ namespace Store.Web.Controllers
             }
 
             var book = bookRepository.GetById(id);
-            order.AddItem(book, 1);
+            order.AddOrUpdateItem(book, 1);
             orderRepository.Update(order);
 
             cart.TotalCount = order.TotalCount;

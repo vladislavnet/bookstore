@@ -32,7 +32,7 @@ namespace Store.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddItem(int id, int count)
+        public IActionResult AddItem(int id, int count = 1)
         {
             (Order order, Cart cart) = GetOrCreateOrderAndCart();
 
@@ -41,7 +41,7 @@ namespace Store.Web.Controllers
             order.AddOrUpdateItem(book, count);
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Book", new { id });
+            return RedirectToAction("Index", "Book", new { id = id });
         }
 
         public IActionResult UpdateItem(int id, int count)
@@ -52,7 +52,7 @@ namespace Store.Web.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Book", new { id });
+            return RedirectToAction("Index", "Order");
         }
 
         [HttpPost]
@@ -64,7 +64,7 @@ namespace Store.Web.Controllers
 
             SaveOrderAndCart(order, cart);
 
-            return RedirectToAction("Index", "Book", new { bookId });
+            return RedirectToAction("Index", "Order");
         }
 
         private OrderModel Map(Order order)

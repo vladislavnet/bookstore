@@ -55,5 +55,10 @@ namespace Store
             items.RemoveAt(index);
         }
 
+        public bool ContainsItem(int bookId)
+        {
+            return items.All(item => item.BookId == bookId);
+        }
+
     }
 }

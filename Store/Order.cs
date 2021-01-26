@@ -23,6 +23,16 @@ namespace Store
             this.items = new List<OrderItem>(items);
         }
 
+        public OrderItem Get(int bookId)
+        {
+            int index = items.FindIndex(item => item.BookId == bookId);
+
+            if (index == -1)
+                throw new InvalidOperationException("Book not found");
+
+            return items[index];
+        }
+
         public void AddOrUpdateItem(Book book, int count)
         {
             if (book == null)
@@ -46,12 +56,9 @@ namespace Store
             if (book == null)
                 throw new ArgumentNullException(nameof(book));
 
-            if (items.Count == 0)
-                throw new InvalidOperationException("Cart must contains empty");
-
             var item = items.SingleOrDefault(x => x.BookId == book.Id);
             if (item == null)
-                throw new InvalidOperationException("Cart does not contains");
+                throw new InvalidOperationException("Order does not contains");
 
             items.RemoveAll(x => x.BookId == book.Id);
         }

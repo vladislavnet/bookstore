@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Store.Messages;
 using Store.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,15 @@ namespace Store.Web.Controllers
     {
         private readonly IBookRepository bookRepository;
         private readonly IOrderRepository orderRepository;
+        private readonly INotificationService notificationService;
 
-        public OrderController(IBookRepository bookRepository, IOrderRepository orderRepository)
+        public OrderController(IBookRepository bookRepository, 
+                               IOrderRepository orderRepository,
+                               INotificationService notificationService)
         {
             this.bookRepository = bookRepository;
             this.orderRepository = orderRepository;
+            this.notificationService = notificationService;
         }
 
 

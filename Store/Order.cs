@@ -45,16 +45,14 @@ namespace Store
                 items[index].Count += count;
         }
 
-        public void RemoveItem(Book book)
+        public void RemoveItem(int id)
         {
-            if (book == null)
-                throw new ArgumentNullException(nameof(book));
-
-            var item = items.SingleOrDefault(x => x.BookId == book.Id);
-            if (item == null)
+            int index = items.FindIndex(item => item.BookId == id);
+    
+            if (index == -1)
                 throw new InvalidOperationException("Order does not contains");
 
-            items.RemoveAll(x => x.BookId == book.Id);
+            items.RemoveAt(index);
         }
 
     }

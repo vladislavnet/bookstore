@@ -51,5 +51,32 @@ namespace Store.Tests
             });
             Assert.Equal(3 * 10m + 5 * 100m, order.TotalPrice);
         }
+
+        [Fact]
+        public void Get_WithExistingItem_ReturnsItem()
+        {
+            var order = new Order(1, new List<OrderItem>()
+            {
+                new OrderItem(1, 3, 10m),
+                new OrderItem(2, 5, 100m),
+            });
+
+            var orderItem = order.Get(1);
+
+            Assert.Equal(3, orderItem.Count);
+        }
+
+
+        [Fact]
+        public void Get_WithNoneExistingItem_ThrowsInvalidOperationException()
+        {
+            var order = new Order(1, new List<OrderItem>()
+            {
+                new OrderItem(1, 3, 10m),
+                new OrderItem(2, 5, 100m),
+            });
+
+            Assert.Throws<InvalidOperationException>(() => order.Get(10));
+        }
     }
 }

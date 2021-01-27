@@ -136,8 +136,12 @@ namespace Store.Web.Controllers
                            });
             }
 
+            HttpContext.Session.Remove(cellPhone);
 
-            return View("");
+            var model = deliveryServices.ToDictionary(service => service.UniqueCode,
+                                                      service => service.Title);
+
+            return View("DeliveryMethod", model);
         }
 
         private OrderModel Map(Order order)

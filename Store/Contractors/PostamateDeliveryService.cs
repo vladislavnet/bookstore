@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Store.Contractors
 {
-    class PostamateDeliveryService : IDeliveryService
+    public class PostamateDeliveryService : IDeliveryService
     {
 
         private static IReadOnlyDictionary<string, string> cities = new Dictionary<string, string>

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Store.Memory;
 using Store.Messages;
 using System;
+using System.Diagnostics;
 
 namespace Store.Web
 {
@@ -55,12 +56,15 @@ namespace Store.Web
 
             app.UseSession();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+           
         }
     }
 }

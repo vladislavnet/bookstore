@@ -148,6 +148,17 @@ namespace Store.Web.Controllers
             return View("DeliveryMethod", model);
         }
 
+        [HttpPost]
+        public IActionResult StartDelivery(int id, string uniqueCode)
+        {
+            var deliveryService = deliveryServices.Single(service => service.UniqueCode == uniqueCode);
+            var order = orderRepository.GetById(id);
+
+            var form = deliveryService.CreateFort(order);
+
+            return View("DeliveryStep", form);
+        }
+
         private OrderModel Map(Order order)
         {
             var bookIds = order.Items.Select(item => item.BookId);

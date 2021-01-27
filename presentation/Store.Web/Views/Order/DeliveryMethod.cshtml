@@ -9,11 +9,12 @@
     <input type="hidden" name="id" value="@Model.OrderId" />
     <div class="form-group">
         <label for="code">Способ доставки:</label>
-        <select class="form-control" name="code" name="uniqueCode">
+        <select class="form-control" name="uniqueCode">
             @foreach (var method in Model.Methods)
             {
                 <option value="@method.Key">@method.Value</option>
             }
         </select>
     </div>
+    <button type="submit" class="btn btn-success">Далее</button>
 </form>

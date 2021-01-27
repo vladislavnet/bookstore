@@ -159,6 +159,21 @@ namespace Store.Web.Controllers
             return View("DeliveryStep", form);
         }
 
+        [HttpPost]
+        public IActionResult NextDelivery(int id, string uniqueCode, int step, Dictionary<string, string> values)
+        {
+            var deliveryService = deliveryServices.Single(service => service.UniqueCode == uniqueCode);
+
+            var form = deliveryService.MoveNext(id, step, values);
+
+            if (form.IsFinal)
+            {
+                return null;
+            }
+
+            return View("DeliveryStep", form);
+        }
+
         private OrderModel Map(Order order)
         {
             var bookIds = order.Items.Select(item => item.BookId);

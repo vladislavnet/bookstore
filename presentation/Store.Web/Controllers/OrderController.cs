@@ -100,6 +100,41 @@ namespace Store.Web.Controllers
                         });
         }
 
+        [HttpPost]
+        public IActionResult StartDelivery(int id, string cellPhone, int code)
+        {
+            int? storedCode = HttpContext.Session.GetInt32(cellPhone);
+            if (storedCode == null)
+            {
+                return View("Confirmation",
+                            new ConfirmationModel
+                            {
+                                OrderId = id,
+                                CellPhone = cellPhone,
+                                Errors = new Dictionary<string, string>
+                                {
+                                    {"code", "Код не может быть пустым." }
+                                },
+                            }); 
+            }
+
+            if (storedCode != code)
+            {
+                return View("Confirmation",
+                           new ConfirmationModel
+                           {
+                               OrderId = id,
+                               CellPhone = cellPhone,
+                               Errors = new Dictionary<string, string>
+                               {
+                                    {"code", "Неверный код." }
+                               },
+                           });
+            }
+
+            return View();
+        }
+
         private OrderModel Map(Order order)
         {
             var bookIds = order.Items.Select(item => item.BookId);

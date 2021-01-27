@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Store.Contractors
@@ -27,7 +28,7 @@ namespace Store.Contractors
             OrderId = orderId;
             Step = step;
             IsFinal = isFinal;
-            Fields = fields;
+            Fields = fields.ToArray();
         }
     }
 }

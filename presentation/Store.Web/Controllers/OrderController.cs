@@ -119,7 +119,7 @@ namespace Store.Web.Controllers
                                 {
                                     {"code", "Код не может быть пустым." }
                                 },
-                            }); 
+                            });
             }
 
             if (storedCode != code)
@@ -138,9 +138,13 @@ namespace Store.Web.Controllers
 
             HttpContext.Session.Remove(cellPhone);
 
-            var model = deliveryServices.ToDictionary(service => service.UniqueCode,
-                                                      service => service.Title);
-
+            var model = new DeliveryModel
+            {
+                OrderId = id,
+                Methods = deliveryServices.ToDictionary(service => service.UniqueCode,
+                                                        service => service.Title)
+            };
+           
             return View("DeliveryMethod", model);
         }
 

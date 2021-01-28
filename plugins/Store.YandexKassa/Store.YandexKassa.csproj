@@ -14,9 +14,5 @@
     <ProjectReference Include="..\..\Store\Store.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\YandexKassa\Views\" />
-  </ItemGroup>
-
 
 </Project>

@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Store.Contractors;
 using Store.Messages;
 using Store.Web.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Store.Web.Controllers
 {
@@ -17,16 +15,19 @@ namespace Store.Web.Controllers
         private readonly IOrderRepository orderRepository;
         private readonly INotificationService notificationService;
         private readonly IEnumerable<IDeliveryService> deliveryServices;
+        private readonly IEnumerable<IPaymentService> paymentServices;
 
         public OrderController(IBookRepository bookRepository, 
                                IOrderRepository orderRepository,
                                INotificationService notificationService,
-                               IEnumerable<IDeliveryService> deliveryServices)
+                               IEnumerable<IDeliveryService> deliveryServices,
+                               IEnumerable<IPaymentService> paymentServices)
         {
             this.bookRepository = bookRepository;
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
             this.deliveryServices = deliveryServices;
+            this.paymentServices = paymentServices;
         }
 
 

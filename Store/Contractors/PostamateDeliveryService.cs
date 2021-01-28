@@ -63,7 +63,7 @@ namespace Store.Contractors
             var description = $"Город: {cityName}\n" +
                               $"Постамат: {postamateName}";
 
-            return new OrderDelivery(UniqueCode, description, parameters);
+            return new OrderDelivery(UniqueCode, description, 150m, parameters);
         }
 
         public Form CreateFort(Order order)

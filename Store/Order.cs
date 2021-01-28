@@ -12,6 +12,8 @@ namespace Store
 
         public IReadOnlyCollection<OrderItem> Items => items;
 
+
+        public string CellPhone { get; set; }
         public int TotalCount => items.Sum(item => item.Count);
         public decimal TotalPrice => items.Sum(item => item.Price * item.Count);
 

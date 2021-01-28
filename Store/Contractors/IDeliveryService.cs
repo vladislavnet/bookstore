@@ -10,5 +10,6 @@ namespace Store.Contractors
         string Title { get; }
         Form CreateFort(Order order);
         Form MoveNext(int orderId, int step, IReadOnlyDictionary<string, string> dict);
+        OrderDelivery GetDelivery(Form form);
     }
 }

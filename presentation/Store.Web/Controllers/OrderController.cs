@@ -136,6 +136,10 @@ namespace Store.Web.Controllers
                            });
             }
 
+            var order = orderRepository.GetById(id);
+            order.CellPhone = cellPhone;
+            orderRepository.Update(order);
+
             HttpContext.Session.Remove(cellPhone);
 
             var model = new DeliveryModel
@@ -168,7 +172,17 @@ namespace Store.Web.Controllers
 
             if (form.IsFinal)
             {
-                return null;
+                var order = orderRepository.GetById(id);
+                order.Delivery = deliveryService.GetDelivery(form);
+                orderRepository.Update(order);
+
+                var model = new DeliveryModel
+                {
+                    OrderId = id,
+                    Methods = paymentServices.ToDictionary(service => service.UniqueCode,
+                                                       service => service.Title)
+                };
+                return View("PaymentMethod", model);
             }
 
             return View("DeliveryStep", form);

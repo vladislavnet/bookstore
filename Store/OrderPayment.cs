@@ -4,15 +4,13 @@ using System.Text;
 
 namespace Store
 {
-    public class OrderDelivery
+    public class OrderPayment
     {
         public string UniqueCode { get; }
         public string Description { get; }
-        public decimal Amount { get; }
         public IReadOnlyDictionary<string, string> Parameters { get; }
-        public OrderDelivery(string uniqueCode, 
+        public OrderPayment(string uniqueCode,
                              string description,
-                             decimal amount,
                              IReadOnlyDictionary<string, string> parameters)
         {
             if (string.IsNullOrWhiteSpace(uniqueCode))
@@ -24,12 +22,8 @@ namespace Store
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
 
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException(nameof(amount));
-
             UniqueCode = uniqueCode;
             Description = description;
-            Amount = amount;
             Parameters = parameters;
         }
     }

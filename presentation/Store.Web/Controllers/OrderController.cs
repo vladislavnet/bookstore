@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Store.Contractors;
 using Store.Messages;
+using Store.Web.Contractors;
 using Store.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,21 @@ namespace Store.Web.Controllers
         private readonly INotificationService notificationService;
         private readonly IEnumerable<IDeliveryService> deliveryServices;
         private readonly IEnumerable<IPaymentService> paymentServices;
+        private readonly IEnumerable<IWebContractorService> webContractorServices;
 
         public OrderController(IBookRepository bookRepository, 
                                IOrderRepository orderRepository,
                                INotificationService notificationService,
                                IEnumerable<IDeliveryService> deliveryServices,
-                               IEnumerable<IPaymentService> paymentServices)
+                               IEnumerable<IPaymentService> paymentServices,
+                               IEnumerable<IWebContractorService> webContractorServices)
         {
             this.bookRepository = bookRepository;
             this.orderRepository = orderRepository;
             this.notificationService = notificationService;
             this.deliveryServices = deliveryServices;
             this.paymentServices = paymentServices;
+            this.webContractorServices = webContractorServices;
         }
 
 
@@ -198,6 +202,11 @@ namespace Store.Web.Controllers
 
             var form = paymentService.CreateForm(order);
 
+            var webContractorService = webContractorServices.SingleOrDefault(service => service.UniqueCode == uniqueCode);
+
+            if (webContractorService != null)
+                return Redirect(webContractorService.GetUri);
+            
             return View("PaymentStep", form);
         }
 
@@ -224,6 +233,13 @@ namespace Store.Web.Controllers
             }
 
             return View("PaymentStep", form);
+        }
+
+        public IActionResult Finish()
+        {
+            HttpContext.Session.RemoveCart();
+
+            return View();
         }
 
         private OrderModel Map(Order order)

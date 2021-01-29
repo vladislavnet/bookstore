@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
+using Store.Web.Contractors;
 using System;
 using System.Diagnostics;
 
@@ -34,6 +35,9 @@ namespace Store.Web
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<INotificationService, DebugNotificationService>();
             services.AddSingleton<IDeliveryService, PostamateDeliveryService>();
+            services.AddSingleton<IPaymentService, CashPaymentService>();
+            services.AddSingleton<IPaymentService, YandexKassa.YandexKassaPaymentService>();
+            services.AddSingleton<IWebContractorService, YandexKassa.YandexKassaPaymentService>();
             services.AddSingleton<BookService>();
         }
 
@@ -64,6 +68,11 @@ namespace Store.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                   name: "yandex.kassa",
+                   areaName: "YandexKassa",
+                   pattern: "YandexKassa/{controller=Home}/{action=Index}/{id?}");
             });
 
            

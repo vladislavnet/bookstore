@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Store.Contractors
 {
-    public interface IDeliveryService
+    public interface IPaymentService
     {
         string UniqueCode { get; }
         string Title { get; }
-        Form CreateFort(Order order);
+        Form CreateForm(Order order);
         Form MoveNext(int orderId, int step, IReadOnlyDictionary<string, string> dict);
-        OrderDelivery GetDelivery(Form form);
+        OrderPayment GetPayment(Form form);
     }
 }

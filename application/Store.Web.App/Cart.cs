@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Store.Web.Models
+﻿namespace Store.Web.Models
 {
     public class Cart
     {
         public int OrderId { get; }
-        public int TotalCount { get; set; }
-        public decimal TotalPrice { get; set; }
+        public int TotalCount { get; }
+        public decimal TotalPrice { get; }
 
-        public Cart(int orderId)
+        public Cart(int orderId, int totalCount, decimal totalPrice)
         {
             OrderId = orderId;
-            TotalCount = 0;
-            TotalPrice = 0m;
+            TotalCount = totalCount;
+            TotalPrice = totalPrice;
         }
     }
 }

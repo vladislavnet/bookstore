@@ -24,7 +24,7 @@ namespace Store
             Price = price;
         }
 
-        internal static bool IsIsbn(string s)
+        public static bool IsIsbn(string s)
         {
             if (string.IsNullOrWhiteSpace(s))
                 return false;

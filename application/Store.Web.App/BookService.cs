@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Store.Web.App;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Store
@@ -12,12 +14,28 @@ namespace Store
             this.bookRepository = bookRepository;
         }
 
-        public IEnumerable<Book> GetAllByQuery(string query)
+        public IReadOnlyCollection<BookModel> GetAllByQuery(string query)
         {
-            if (Book.IsIsbn(query))
-                return bookRepository.GetByAllIsbn(query);
+            var books = Book.IsIsbn(query)
+                      ? bookRepository.GetByAllIsbn(query)
+                      : bookRepository.GetAllByTitleOrAutror(query);
 
-            return bookRepository.GetAllByTitleOrAutror(query);
+            return books.Select(Map)
+                        .ToArray();
+        }
+
+        private BookModel Map(Book book)
+        {
+            return new BookModel
+            {
+                Id = book.Id,
+                Isbn = book.Isbn,
+                Title = book.Title,
+                AuthorId = book.Author.Id,
+                AuthorFullname = book.Author?.Fullname ?? "",
+                Description = book.Description,
+                Price = book.Price,
+            };
         }
     }
 }

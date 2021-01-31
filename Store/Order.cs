@@ -7,63 +7,18 @@ namespace Store
     public class Order
     {
         public int Id { get; }
-
-        private List<OrderItem> items;
-
-        public IReadOnlyCollection<OrderItem> Items => items;
-
-
+        public OrderItemCollection Items { get; }
         public string CellPhone { get; set; }
         public OrderDelivery Delivery { get; set; }
         public OrderPayment Payment { get; set; }
-        public int TotalCount => items.Sum(item => item.Count);
-        public decimal TotalPrice => items.Sum(item => item.Price * item.Count) 
+        public int TotalCount => Items.Sum(item => item.Count);
+        public decimal TotalPrice => Items.Sum(item => item.Price * item.Count) 
                                    + (Delivery?.Amount ?? 0m);
 
         public Order(int id, IEnumerable<OrderItem> items)
         {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
             Id = id;
-            this.items = new List<OrderItem>(items);
+            Items = new OrderItemCollection(items);
         }
-
-        public OrderItem Get(int bookId)
-        {
-            int index = items.FindIndex(item => item.BookId == bookId);
-
-            if (index == -1)
-                throw new InvalidOperationException("Book not found");
-
-            return items[index];
-        }
-
-        public void AddOrUpdateItem(Book book, int count)
-        {
-            if (book == null)
-                throw new ArgumentNullException(nameof(book));
-
-            int index = items.FindIndex(item => item.BookId == book.Id);
-            if(index == -1)
-                items.Add(new OrderItem(book.Id, count, book.Price));
-            else
-                items[index].Count += count;
-        }
-
-        public void RemoveItem(int id)
-        {
-            int index = items.FindIndex(item => item.BookId == id);
-    
-            if (index == -1)
-                throw new InvalidOperationException("Order does not contains");
-
-            items.RemoveAt(index);
-        }
-
-        public bool ContainsItem(int bookId)
-        {
-            return items.All(item => item.BookId == bookId);
-        }
-
     }
 }

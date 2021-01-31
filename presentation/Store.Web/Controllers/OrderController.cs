@@ -7,6 +7,7 @@ using Store.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Store.Web.App;
 
 namespace Store.Web.Controllers
 {
@@ -281,7 +282,7 @@ namespace Store.Web.Controllers
             else
             {
                 order = orderRepository.Create();
-                cart = new Cart(order.Id);
+                cart = new Cart(order.Id, 0, 0m);
             }
 
             return (order, cart);
@@ -291,8 +292,8 @@ namespace Store.Web.Controllers
         {
             orderRepository.Update(order);
 
-            cart.TotalCount = order.TotalCount;
-            cart.TotalPrice = order.TotalPrice;
+            cart = new Cart(order.Id, order.TotalCount, order.TotalPrice);
+
             HttpContext.Session.Set(cart);
         }
 

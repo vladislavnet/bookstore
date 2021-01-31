@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Store.Contractors;
 using Store.Memory;
 using Store.Messages;
+using Store.Web.App;
 using Store.Web.Contractors;
 using System;
 using System.Diagnostics;
@@ -39,6 +40,7 @@ namespace Store.Web
             services.AddSingleton<IPaymentService, YandexKassa.YandexKassaPaymentService>();
             services.AddSingleton<IWebContractorService, YandexKassa.YandexKassaPaymentService>();
             services.AddSingleton<BookService>();
+            services.AddSingleton<OrderService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

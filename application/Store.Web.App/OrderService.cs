@@ -60,8 +60,7 @@ namespace Store.Web.App
                         {
                             BookId = book.Id,
                             Title = book.Title,
-                            AuthorId = book.AuthorId,
-                            AuthorFullname = book.Author.Fullname,
+                            Author = book.Author,
                             Price = item.Price,
                             Count = item.Count,
                         };

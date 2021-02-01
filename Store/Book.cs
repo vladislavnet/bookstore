@@ -7,6 +7,7 @@ namespace Store
     public class Book
     {
         private readonly BookDto dto;
+
         public int Id => dto.Id;
 
         public string Isbn
@@ -20,16 +21,13 @@ namespace Store
                 throw new ArgumentException(nameof(Isbn));
             }
         }
-        public int AuthorId 
-        {
-            get => dto.AuthorId;
-            set => dto.AuthorId = value;
-        }
-        public Author Author
+
+        public string Author
         {
             get => dto.Author;
-            set => dto.Author = value;
+            set => dto.Author = value?.Trim();
         }
+
         public string Title
         {
             get => dto.Title;
@@ -41,11 +39,13 @@ namespace Store
                 dto.Title = value.Trim();
             }
         }
+
         public string Description
         {
             get => dto.Description;
             set => dto.Description = value;
         }
+
         public decimal Price
         {
             get => dto.Price;
@@ -78,8 +78,7 @@ namespace Store
         public static class DtoFactory
         {
             public static BookDto Create(string isbn,
-                                         int authorId,
-                                         Author author,
+                                         string author,
                                          string title,
                                          string description,
                                          decimal price)
@@ -95,8 +94,7 @@ namespace Store
                 return new BookDto
                 {
                     Isbn = isbn,
-                    AuthorId = authorId,
-                    Author = author,
+                    Author = author?.Trim(),
                     Title = title.Trim(),
                     Description = description?.Trim(),
                     Price = price,

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Store.Web
 {
-    public class ExceptionFilter
+    public class ExceptionFilter : IExceptionFilter
     {
         private readonly IWebHostEnvironment webHostEnvironment;
 

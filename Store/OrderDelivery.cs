@@ -8,11 +8,11 @@ namespace Store
     {
         public string UniqueCode { get; }
         public string Description { get; }
-        public decimal Amount { get; }
+        public decimal Price { get; }
         public IReadOnlyDictionary<string, string> Parameters { get; }
         public OrderDelivery(string uniqueCode, 
                              string description,
-                             decimal amount,
+                             decimal price,
                              IReadOnlyDictionary<string, string> parameters)
         {
             if (string.IsNullOrWhiteSpace(uniqueCode))
@@ -24,12 +24,12 @@ namespace Store
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
 
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException(nameof(amount));
+            if (price < 0)
+                throw new ArgumentOutOfRangeException(nameof(price));
 
             UniqueCode = uniqueCode;
             Description = description;
-            Amount = amount;
+            Price = price;
             Parameters = parameters;
         }
     }

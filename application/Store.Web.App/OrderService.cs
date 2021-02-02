@@ -60,8 +60,7 @@ namespace Store.Web.App
                         {
                             BookId = book.Id,
                             Title = book.Title,
-                            AuthorId = book.AuthorId,
-                            AuthorFullname = book.Author.Fullname,
+                            Author = book.Author,
                             Price = item.Price,
                             Count = item.Count,
                         };
@@ -106,6 +105,8 @@ namespace Store.Web.App
                 orderItem.Count += count;
             else
                 order.Items.Add(book.Id, book.Price, count);
+
+            orderRepository.Update(order);
         }
 
         internal void UpdateSession(Order order)

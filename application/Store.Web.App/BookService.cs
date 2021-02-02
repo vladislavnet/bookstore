@@ -35,8 +35,7 @@ namespace Store.Web.App
                 Id = book.Id,
                 Isbn = book.Isbn,
                 Title = book.Title,
-                AuthorId = book.Author.Id,
-                AuthorFullname = book.Author?.Fullname ?? "",
+                Author = book.Author,
                 Description = book.Description,
                 Price = book.Price,
             };

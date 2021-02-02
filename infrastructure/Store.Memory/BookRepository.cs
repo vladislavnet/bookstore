@@ -30,7 +30,7 @@ namespace Store.Memory
         public IEnumerable<Book> GetAllByTitleOrAutror(string titleOrAuthor)
         {
             return books.Where(book => book.Title.Contains(titleOrAuthor) 
-                                    || book.Author.Fullname.Contains(titleOrAuthor));
+                                    || book.Author.Contains(titleOrAuthor));
         }
 
         public IEnumerable<Book> GetByAllIsbn(string isbn)

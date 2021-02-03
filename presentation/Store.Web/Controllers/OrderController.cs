@@ -41,6 +41,11 @@ namespace Store.Web.Controllers
         //    return View("Empty");
         //}
 
+
+        /// <summary>
+        /// Index method
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
